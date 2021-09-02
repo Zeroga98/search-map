@@ -1,0 +1,237 @@
+.country {
+    $America: #00b3b6;
+    $Europe: #ffb12c;
+    $Africa: #4c8a2e;
+    $Asia: #d44f31;
+    $Oceania: #c3c3c3;
+    $Antarctica: #ff6223;
+    border: none;
+    box-shadow: 1px 4px 4px 0 rgba(0, 0, 0, 0.2);
+    padding-bottom: 10px;
+    .title {
+        font-family: "Montserrat", sans-serif;
+        color: #666;
+        font-size: 13px;
+        margin: 20px 15px 12px;
+        text-align: center;
+    }
+    .btn-more {
+        color: #fff;
+        background-color: #00b3b6;
+        border-color: transparent;
+        padding: 5px 15px;
+        border-radius: 25px;
+        font-size: 14px;
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .item-continent {
+        background: #fbfcfd;
+        margin: 5px 13px;
+        list-style: none;
+        border-radius: 5px;
+        display: flex;
+        padding: 10px 7px;
+        width: 93%;
+        -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+        transition: width 2s;
+        overflow: hidden;
+        &--hiden {
+            /* width: 89px; */
+            .picture {
+                -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+                filter: grayscale(100%);
+            }
+        }
+        &--open {
+            overflow: visible;
+        }
+        .picture {
+            img {
+                width: 70px;
+            }
+        }
+        .detail {
+            white-space: nowrap;
+            margin-left: 14px;
+            &__title {
+                display: block;
+                font-size: 12px;
+                font-family: "Montserrat", sans-serif;
+                line-height: 1.5;
+                font-weight: 500;
+            }
+            .name-continent {
+                font-size: 15px;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 600;
+                line-height: 1;
+                display: block;
+            }
+            &__drop {
+                color: #fff;
+                border-radius: 25px;
+                font-size: 10px;
+                margin-top: 10px;
+                font-size: 12px;
+                /* width: 80px; */
+                text-align: center;
+                a {
+                    color: #fff;
+                    font-weight: bold;
+                    font-family: "Montserrat", sans-serif;
+                    padding: 6px 10px;
+                }
+            }
+            &--border {
+                border-bottom: 1px solid;
+            }
+        }
+        .circle-percentage {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            &__num {
+                font-family: "Montserrat", sans-serif;
+                color: #fff;
+                font-weight: bold;
+                font-size: 18px;
+                align-self: center;
+                &--low {
+                    font-size: 10px;
+                }
+                &--medium {
+                    font-size: 13px;
+                }
+            }
+            &--hiden {
+                cursor: pointer;
+                display: flex !important;
+                position: absolute;
+                top: 15px;
+                width: 40px;
+                height: 40px;
+                background: #fff !important;
+                border: 1px solid #d2d2d2;
+                left: 12px;
+                .circle-percentage__num {
+                    color: #666 !important;
+                    font-size: 10px !important;
+                }
+            }
+        }
+        .label {
+            color: #666;
+            display: block !important;
+            font-size: 12px;
+            font-family: "Montserrat", sans-serif;
+            text-align: center;
+            position: absolute;
+            bottom: -5px;
+            left: 7px;
+        }
+        .dropdown-menu-right {
+            right: 0;
+            left: auto;
+            left: -2px;
+            top: -46px;
+            width: 260px;
+            padding: 0.5rem 1rem 1.5rem;
+            max-height: 500px;
+            overflow-y: scroll;
+        }
+        @mixin colorContinent($color, $border-color) {
+            border: 1px solid $color;
+            border-right: 5px solid $color !important;
+            .dropdown-menu-right {
+                border: 1px solid $color;
+                &::-webkit-scrollbar-track {
+                    -webkit-box-shadow: inset 0 0 6px $color;
+                    border-radius: 10px;
+                    background-color: #f5f5f5;
+                }
+                &::-webkit-scrollbar {
+                    width: 7px;
+                    background-color: #f5f5f5;
+                }
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                    background-color: $color;
+                }
+            }
+            .picture {
+                border-right: 1px solid $border-color;
+            }
+            .detail {
+                color: $color;
+                &__drop {
+                    background: $color;
+                }
+                &__header {
+                    background: $color;
+                    color: #fff;
+                    padding: 3px 10px;
+                    font-size: 13px;
+                    font-family: "Montserrat", sans-serif;
+                    margin-bottom: 5px;
+                    border-radius: 4px;
+                }
+                &__content {
+                    background-color: #f9f9f9;
+                    margin-bottom: 5px;
+                    border-left: 4px solid $color !important;
+                    border: 1px solid #eaeaea;
+                    border-radius: 4px;
+                    padding: 0px 0px 0px 5px;
+                    overflow: hidden;
+                    .country {
+                        color: #666;
+                        font-family: "Montserrat", sans-serif;
+                        font-size: 14px;
+                        flex: 0.8;
+                        align-self: center;
+                    }
+                    .percentage {
+                        color: #666;
+                        font-family: "Montserrat", sans-serif;
+                        font-size: 14px;
+                        flex: 0.2;
+                        border-left: 1px solid #eaeaea;
+                        border-right: 1px solid #eaeaea;
+                        padding: 3px;
+                        align-self: center;
+                        text-align: center;
+                    }
+                }
+            }
+            .circle-percentage {
+                background-color: $color;
+            }
+        }
+        &--North {
+            @include colorContinent($America, #00b0b657);
+        }
+        &--South {
+            @include colorContinent($America, #00b0b657);
+        }
+        &--Europe {
+            @include colorContinent($Europe, #ffb12c73);
+        }
+        &--Africa {
+            @include colorContinent($Africa, #4c8a2e5c);
+        }
+        &--Asia {
+            @include colorContinent($Asia, #d44f3163);
+        }
+        &--Oceania {
+            @include colorContinent($Oceania, #c3c3c361);
+        }
+        &--Antarctica {
+            @include colorContinent($Antarctica, #ff6223);
+        }
+    }
+}
