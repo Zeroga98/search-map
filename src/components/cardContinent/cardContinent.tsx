@@ -19,7 +19,7 @@ function CardContinent(continent: IContinent, continent_name: string, dropdownOp
                         setDropdownOpen(continent_name)
                     }
                 }}>
-                    <a className="dropdown-toggle nav-link">Ver Paises</a>
+                    <span className="dropdown-toggle nav-link">Ver Paises</span>
                 </li>
             </div>
         </div>

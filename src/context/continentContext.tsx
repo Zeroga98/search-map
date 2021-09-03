@@ -5,7 +5,7 @@ export const ContinentContext = React.createContext<ContextType | null>(null);
 const ContinentProvider: React.FC<React.ReactNode> = ({ children }) => {
     const [continents, setContinents] = React.useState<IContinent[]>([]);
     const [countries, setCountries] = React.useState<ICountry[]>([]);
-    const [country, setCountry] = React.useState<ICountry>();
+    /* const [country, setCountry] = React.useState<ICountry>(); */
 
     const saveContinents = (newContinents: IContinent[]) => {
         const newContinentsT: IContinent[] = newContinents
@@ -17,10 +17,10 @@ const ContinentProvider: React.FC<React.ReactNode> = ({ children }) => {
         setCountries(newCountriesT);
     };
 
-    const saveCountry = (newCountry: ICountry) => {
+/*     const saveCountry = (newCountry: ICountry) => {
         const newCountryT: ICountry = newCountry
         setCountry(newCountryT);
-    };
+    }; */
 
     /*    const updateContinent = (id: number) => {
            continents.filter((continent: IContinent) => {

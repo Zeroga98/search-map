@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, Dispatch, SetStateAction, useState } from 'react';
+import React, { useEffect, Dispatch, SetStateAction } from 'react';
 import {
     useQuery,
     useLazyQuery,
@@ -45,16 +45,6 @@ const GET_FEED_FILTER = gql`
         continents(filter:{code:{nin:""}}){
          code
          name
-         countries{
-            code
-            name
-            native
-            phone
-            capital
-            currency
-            emoji
-            emojiU
-         }
        }
   }
 `
@@ -80,10 +70,9 @@ function RenderList(continents: IContinent[], dropdownOpen: string, setDropdownO
 }
 
 function ListContinent(props: IProps) {
-    const { loading, data, error } = useQuery(GET_FEED_FILTER)
-    let [getCountries, { loading: loadingCountries, data: dataCountries }] = useLazyQuery(GET_COUNTRIES_CONTINENT, { variables: { codeContinent: "SA" } })
+    const { loading, data } = useQuery(GET_FEED_FILTER)
+    let [getCountries, { data: dataCountries }] = useLazyQuery(GET_COUNTRIES_CONTINENT, { variables: { codeContinent: "SA" } })
     const { continents, saveContinents } = React.useContext(ContinentContext) as ContextType;
-    const [countries, setContries] = useState({ loading: false, data: [] })
 
     useEffect(() => {
         if (data) {
@@ -93,8 +82,8 @@ function ListContinent(props: IProps) {
     }, [data])
 
     useEffect(() => {
-        if (props.continent != 'default') {
-            let currentContinent = continents.find((continent) => props.continent == continent.name)
+        if (props.continent !== 'default') {
+            let currentContinent = continents.find((continent) => props.continent === continent.name)
             getCountries({ variables: { codeContinent: currentContinent ? currentContinent.code.toString() : "SA" } })
         }
     }, [props.continent])
@@ -107,7 +96,7 @@ function ListContinent(props: IProps) {
                     <span>Cargando...</span>
                 }
                 {continents.length > 0 && RenderList(continents, props.continent, props.setContinent)}
-                {props.continent != 'default' &&
+                {props.continent !== 'default' &&
                     <div className={`item-continent item-continent--${props.continent} item-continent--none item-continent--open`}>
                         <div className="dropdown-menu dropdown-menu-right show">
                             <div className="d-flex mb-2">
