@@ -25,6 +25,7 @@
         margin-top: 10px;
         text-align: center;
         font-weight: bold;
+        max-width: 300px;
     }
     .item-continent {
         background: #fbfcfd;
@@ -75,6 +76,7 @@
                 font-size: 10px;
                 margin-top: 10px;
                 font-size: 12px;
+                cursor: pointer;
                 /* width: 80px; */
                 text-align: center;
                 a {
@@ -136,8 +138,8 @@
         .dropdown-menu-right {
             right: 0;
             left: auto;
-            left: -2px;
-            top: -46px;
+            left: 290px;
+            top: 170px;
             width: 260px;
             padding: 0.5rem 1rem 1.5rem;
             max-height: 500px;
@@ -232,6 +234,10 @@
         }
         &--Antarctica {
             @include colorContinent($Antarctica, #ff6223);
+        }
+        &--none{
+            border: none;
+            border-right: 0px solid transparent!important;
         }
     }
 }

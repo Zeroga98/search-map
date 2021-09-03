@@ -1,22 +1,43 @@
 
 
-import React, { useEffect, Dispatch, SetStateAction } from 'react';
-import gql from 'graphql-tag'
+import React, { useEffect, Dispatch, SetStateAction, useState } from 'react';
 import {
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu
-} from 'reactstrap';
-import { useQuery } from '@apollo/react-hooks'
+    useQuery,
+    useLazyQuery,
+    gql
+} from "@apollo/client";
+
 import { ContinentContext } from "../../context/continentContext";
-
-import americaLogo from '../../assets/img/america.svg'
-
+import CardContinent from "../../components/cardContinent/cardContinent";
 
 interface IProps {
     continent: string;
     setContinent: Dispatch<SetStateAction<string>>;
 }
+
+const GET_COUNTRIES_CONTINENT = gql`
+    query FeedFilter($codeContinent: String!) {
+        countries(filter:{ continent:{eq: $codeContinent }}){
+            code
+            name
+            native
+            phone
+            continent{
+              name
+              code
+            }
+            capital
+            currency
+            languages{
+              name
+              code
+              native 
+              rtl
+            }
+              emoji   
+          }
+          }
+`
 
 
 const GET_FEED_FILTER = gql`
@@ -49,59 +70,20 @@ function renderListCountry(country: ICountry, i: number) {
     )
 }
 
-
-function RenderCardContinent(continent: IContinent, continent_name: string, dropdownOpen: string, setDropdownOpen: Dispatch<SetStateAction<string>>) {
-    return (
-        <div className={`item-continent item-continent--${continent_name.split(" ")[0]} ${dropdownOpen === continent_name ? 'item-continent--open' : 'item-continent--hiden'} `}>
-            <div className="picture align-self-center">
-                <img alt={continent_name} src={americaLogo} />
-            </div>
-            <div className="detail align-self-center">
-                <span className="detail__title">Región Geografica</span>
-                <span className="name-continent">{continent_name}</span>
-                {/* <Dropdown className="detail__drop" nav inNavbar> */}
-                <Dropdown isOpen={dropdownOpen === continent_name} toggle={() => {
-                    if (dropdownOpen === continent_name) {
-                        setDropdownOpen("default")
-                    } else {
-                        console.log(continent_name)
-                        setDropdownOpen(continent_name)
-                    }
-                }} className="detail__drop" nav inNavbar>
-                    <DropdownToggle nav caret>Ver paises</DropdownToggle>
-                    <DropdownMenu right>
-                        <div className="d-flex mb-2">
-                            <div className="detail detail--border align-self-center flex-fill pb-2 ml-0">
-                                <span className="detail__title">Paises</span>
-                            </div>
-                            <div className="circle-percentage ml-auto align-self-center"></div>
-                        </div>
-                        <div>
-                            {continent.countries.length > 0 &&
-                                continent.countries.map((country, i) =>
-                                    renderListCountry(country, i)
-                                )
-                            }
-                        </div>
-                    </DropdownMenu>
-                </Dropdown>
-            </div>
-        </div>
-    )
-}
-
 function RenderList(continents: IContinent[], dropdownOpen: string, setDropdownOpen: Dispatch<SetStateAction<string>>) {
 
     return continents.map((continent, i) => {
         let labelContinent = continent.name;
-        return <React.Fragment key={i}>{RenderCardContinent(continent, labelContinent, dropdownOpen, setDropdownOpen)}</React.Fragment>
+        return <React.Fragment key={i}>{CardContinent(continent, labelContinent, dropdownOpen, setDropdownOpen)}</React.Fragment>
     }
     )
 }
 
 function ListContinent(props: IProps) {
     const { loading, data, error } = useQuery(GET_FEED_FILTER)
+    let [getCountries, { loading: loadingCountries, data: dataCountries }] = useLazyQuery(GET_COUNTRIES_CONTINENT, { variables: { codeContinent: "SA" } })
     const { continents, saveContinents } = React.useContext(ContinentContext) as ContextType;
+    const [countries, setContries] = useState({ loading: false, data: [] })
 
     useEffect(() => {
         if (data) {
@@ -109,6 +91,13 @@ function ListContinent(props: IProps) {
             saveContinents(NewContinent);
         }
     }, [data])
+
+    useEffect(() => {
+        if (props.continent != 'default') {
+            let currentContinent = continents.find((continent) => props.continent == continent.name)
+            getCountries({ variables: { codeContinent: currentContinent ? currentContinent.code.toString() : "SA" } })
+        }
+    }, [props.continent])
 
     return (
         <div className="col-sm-12 col-md-8 col-lg-4 col-xl-3 p-0">
@@ -118,9 +107,24 @@ function ListContinent(props: IProps) {
                     <span>Cargando...</span>
                 }
                 {continents.length > 0 && RenderList(continents, props.continent, props.setContinent)}
-                {/* <div className="d-flex justify-content-center">
-                    <button className="btn-more">Ver todos los paises paises</button>
-                </div> */}
+                {props.continent != 'default' &&
+                    <div className={`item-continent item-continent--${props.continent} item-continent--none item-continent--open`}>
+                        <div className="dropdown-menu dropdown-menu-right show">
+                            <div className="d-flex mb-2">
+                                <div className="detail detail--border align-self-center flex-fill pb-2 ml-0">
+                                    <span className="detail__title">Paises</span>
+                                </div>
+                                <div className="circle-percentage ml-auto align-self-center"></div>
+                            </div>
+
+                            {dataCountries?.countries?.length > 0 &&
+                                dataCountries.countries.map((country: any, i: number) =>
+                                    renderListCountry(country, i)
+                                )
+                            }
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     );
