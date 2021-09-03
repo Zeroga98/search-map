@@ -1,12 +1,18 @@
 import {
   BrowserRouter as Router
 } from "react-router-dom";
-import { ApolloProvider } from '@apollo/react-components'
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache
+} from "@apollo/client";
 
 import Routes from './scenes/routes';
 import Header from './components/header/header'
 import apolloClient from '../src/common/api/api'
 import ContinentProvider from "./context/continentContext";
+
+
 
 function App() {
 
