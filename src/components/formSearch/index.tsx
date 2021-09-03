@@ -107,8 +107,8 @@ function ListCountries(props: IProps) {
                 <div >
                     <Form style={{ display: 'flex', justifyContent: 'center', flexDirection: "column", alignItems: 'center' }} onSubmit={handleSubmit}>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <FormGroup style={{marginRight: "15px"}}>
-                                <Label for="exampleSelect">Continente</Label>
+                            <FormGroup style={{ marginRight: "15px" }}>
+                                <Label for="exampleSelect" className="label">Continente</Label>
                                 <Input type="select" name="select" value={props.continent} onChange={(event) => { props.setContinent(event.target.value) }}>
                                     <option >...</option>
                                     {continents && continents.map((continent, i) => {
@@ -116,9 +116,9 @@ function ListCountries(props: IProps) {
                                     })}
                                 </Input>
                             </FormGroup>
-                            <FormGroup style={{marginRight: "15px"}}>
-                                <Label for="exampleSelect">Moneda</Label>
-                                <Input type="select" name="select" id="exampleSelect" onChange={(event) => { setSelectCurrency(event.target.value) }}>
+                            <FormGroup style={{ marginRight: "15px" }}>
+                                <Label for="exampleSelect" className="label">Moneda</Label>
+                                <Input type="select" name="select" className="label" onChange={(event) => { setSelectCurrency(event.target.value) }}>
                                     <option>...</option>
                                     {currency.map((item, i) => {
                                         return <option key={i}>{item}</option>
@@ -127,7 +127,7 @@ function ListCountries(props: IProps) {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleEmail">Pais</Label>
-                                <Input type="email" name="email" id="exampleEmail" placeholder="Nombre del pais" onChange={(event) => filterName(event?.target.value)} />
+                                <Input type="email" name="email" className="label" placeholder="Nombre del pais" onChange={(event) => filterName(event?.target.value)} />
                             </FormGroup>
                         </div>
                         <Button className="btn-more">Reset</Button>
