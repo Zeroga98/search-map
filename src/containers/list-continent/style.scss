@@ -135,15 +135,27 @@
             bottom: -5px;
             left: 7px;
         }
-        .dropdown-menu-right {
-            right: 0;
-            left: auto;
-            left: calc(100%);
-            top: calc(50% - 260px);
-            width: 260px;
-            padding: 0.5rem 1rem 1.5rem;
-            max-height: 500px;
-            overflow-y: scroll;
+        .dropdown-menu {
+            &-right {
+                right: 0;
+                left: auto;
+                left: calc(100%);
+                top: calc(50% - 240px);
+                width: 260px;
+                padding: 0.5rem 1rem 1.5rem;
+                max-height: 500px;
+                overflow-y: scroll;
+            }
+            &-detail {
+                right: 0;
+                left: auto;
+                left: calc(193%);
+                top: calc(50% - 240px);
+                width: 360px;
+                padding: 0.5rem 1rem 1.5rem;
+                max-height: 500px;
+                overflow-y: scroll;
+            }
         }
         @mixin colorContinent($color, $border-color) {
             border: 1px solid $color;
@@ -196,6 +208,7 @@
                         font-size: 14px;
                         flex: 0.8;
                         align-self: center;
+                        text-align: left;
                     }
                     .percentage {
                         color: #666;
@@ -238,6 +251,9 @@
         &--none {
             border: none;
             border-right: 0px solid transparent !important;
+            height: 0px;
+            margin: 0px;
+            padding: 0px;
         }
     }
 }

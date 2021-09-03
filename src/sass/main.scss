@@ -23,12 +23,12 @@
   'layout/footer'; */
 
 @import 
-'../containers/detail-country/style.scss',
 '../containers/list-continent/style.scss';
 
 // 5. Components
 @import
-  'components/header';
+  'components/header',
+  '../components//detailCountry/style.scss';
 
 // 6. Page-specific styles
 @import

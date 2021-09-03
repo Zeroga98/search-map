@@ -5,7 +5,16 @@ export const ContinentContext = React.createContext<ContextType | null>(null);
 const ContinentProvider: React.FC<React.ReactNode> = ({ children }) => {
     const [continents, setContinents] = React.useState<IContinent[]>([]);
     const [countries, setCountries] = React.useState<ICountry[]>([]);
-    /* const [country, setCountry] = React.useState<ICountry>(); */
+    const [country, setCountry] = React.useState<ICountry>({
+        code: "",
+        name: "",
+        native: "",
+        phone: "",
+        capital: "",
+        currency: "",
+        emoji: "",
+        emojiU: ""
+    });
 
     const saveContinents = (newContinents: IContinent[]) => {
         const newContinentsT: IContinent[] = newContinents
@@ -17,22 +26,13 @@ const ContinentProvider: React.FC<React.ReactNode> = ({ children }) => {
         setCountries(newCountriesT);
     };
 
-/*     const saveCountry = (newCountry: ICountry) => {
+    const saveCountry = (newCountry: ICountry) => {
         const newCountryT: ICountry = newCountry
         setCountry(newCountryT);
-    }; */
-
-    /*    const updateContinent = (id: number) => {
-           continents.filter((continent: IContinent) => {
-               if (continent.code === id) {
-   
-                   setContinents([...continents]);
-               }
-           });
-       }; */
+    };
 
     return (
-        <ContinentContext.Provider value={{ continents, saveContinents, countries, saveCountries }}>
+        <ContinentContext.Provider value={{ continents, saveContinents, countries, saveCountries, country, saveCountry }}>
             {children}
         </ContinentContext.Provider>
     );

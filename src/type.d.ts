@@ -1,9 +1,16 @@
+interface ILanguage {
+    name: string;
+    code: string;
+    native: string;
+    rtl: boolean;
+}
 interface ICountry {
     code: string;
     name: string;
     native: string;
     phone: string;
     continent?: IContinent;
+    languages?: ILanguage[];
     capital: string;
     currency: string;
     emoji: string;
@@ -13,7 +20,7 @@ interface ICountry {
 interface IContinent {
     code: number;
     name: string;
-    countries: ICountry[];
+    countries?: ICountry[];
 }
 
 type ContextType = {
@@ -21,4 +28,6 @@ type ContextType = {
     saveContinents: (continent: IContinent[]) => void;
     countries: ICountry[];
     saveCountries: (countries: ICountry[]) => void;
+    country: ICountry;
+    saveCountry: (country: ICountry) => void;
 };
