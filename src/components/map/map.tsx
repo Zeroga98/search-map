@@ -20,27 +20,23 @@ function Map(props: IProps) {
 
     const constCenterGeography: any = {
         "default": [0, 20],
-        "North America": [-74.03273704001933, 46.118688963419885],
-        "South America": [-39.28575050574748, -28.504969661667648],
-        "Africa": [34.060676091769885, 7.486077065413643],
-        "Europe": [33.906567756551766, 50.70616534963902],
-        "Asia": [98.66026676692498, 47.52623398513799],
-        "Oceania": [155.92878902610445, -14.324072483076726],
+        "North America": [-132.82470093360928, 35.91789590645403],
+        "South America": [-93.09461453859858, -18.457779236588348],
+        "Africa": [-13.95426046428222, 5.561515108915941],
+        "Europe": [-12.763935310316684, 48.799384037502364],
+        "Asia": [44.46758831830023, 32.90638963553997],
+        "Oceania": [99.61724207420387, -25.104308098481635],
         "america": [-67.78410166288795, 23.49927956111437],
-        "africa": [34.060676091769885, 7.486077065413643],
-        "europa": [33.906567756551766, 50.70616534963902],
-        "asia": [98.66026676692498, 47.52623398513799],
-        "oceania": [155.92878902610445, -14.324072483076726],
+        "africa": [-13.95426046428222, 5.561515108915941],
+        "europa": [-12.763935310316684, 48.799384037502364],
+        "asia": [44.46758831830023, 32.90638963553997],
+        "oceania": [99.61724207420387, -25.104308098481635],
+        "Antarctica": [-62.125696141000304, 90],
     };
 
     const onClickCountry = (geography: any) => {
         let continent = geography.properties.continent;
-        console.log(continent)
-        /*   continent = (continent === 'North America' || continent === 'South America') ? 'america' : continent;
-          continent = continent === 'Europe' ? 'europa' : continent.toLowerCase(); */
-        /*         console.log(constCenterGeography['asia']) */
         props.setContinent(continent)
-        /* this.props.changeContinentDetail({ continentOpenDetail: continent, zoomMap: 1.5, centerMap: geography.properties.continent }); */
     }
 
     return (
@@ -49,7 +45,7 @@ function Map(props: IProps) {
             height={551}
             style={{ width: "100%", height: "auto" }}
         >
-            <ZoomableGroup center={constCenterGeography[props.continent.toString()]} zoom={1.5}>
+            <ZoomableGroup center={constCenterGeography[props.continent.toString()]} zoom={1.5} >
                 <Geographies geography={"https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json"}>
                     {({ geographies }) =>
                         geographies.map((geo) => {
