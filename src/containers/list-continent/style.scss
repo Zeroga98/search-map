@@ -138,8 +138,8 @@
         .dropdown-menu-right {
             right: 0;
             left: auto;
-            left: 290px;
-            top: 170px;
+            left: calc(100%);
+            top: calc(50% - 260px);
             width: 260px;
             padding: 0.5rem 1rem 1.5rem;
             max-height: 500px;
@@ -235,9 +235,9 @@
         &--Antarctica {
             @include colorContinent($Antarctica, #ff6223);
         }
-        &--none{
+        &--none {
             border: none;
-            border-right: 0px solid transparent!important;
+            border-right: 0px solid transparent !important;
         }
     }
 }
