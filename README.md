@@ -1,3 +1,5 @@
+![Project Logo](https://res.cloudinary.com/cacaotics/image/upload/v1630691938/2e598981-2fb9-4ba6-aa80-e038b7f2c1c7.jpg)
+
 # [Search-map](https://search-map-53af2.web.app)
 
 ## Instalación
