@@ -70,7 +70,7 @@ function RenderList(continents: IContinent[], dropdownOpen: string, setDropdownO
 function ListContinent(props: IProps) {
     const { loading, data } = useQuery(GET_FEED_FILTER)
     let [getCountries, { data: dataCountries }] = useLazyQuery(GET_COUNTRIES_CONTINENT, { variables: { codeContinent: "SA" } })
-    const { continents, saveContinents, country, saveCountry } = React.useContext(ContinentContext) as ContextType;
+    const { continents, saveContinents, countries, saveCountries, country, saveCountry } = React.useContext(ContinentContext) as ContextType;
     const [currentCountry, setCurrentCountry] = useState<ICountry>(country)
 
     useEffect(() => {
@@ -94,6 +94,12 @@ function ListContinent(props: IProps) {
         }
     }, [currentCountry])
 
+    useEffect(() => {
+        if (dataCountries) {
+            saveCountries(dataCountries.countries)
+        }
+    }, [dataCountries])
+
     return (
         <div className="col-sm-12 col-md-8 col-lg-4 col-xl-3 p-0">
             <div className="card list-continents">
@@ -113,8 +119,8 @@ function ListContinent(props: IProps) {
                                     <div className="circle-percentage ml-auto align-self-center"></div>
                                 </div>
 
-                                {dataCountries?.countries?.length > 0 &&
-                                    dataCountries.countries.map((country: any, i: number) =>
+                                {countries?.length > 0 &&
+                                    countries.map((country: any, i: number) =>
                                         RenderListCountry(country, i, setCurrentCountry)
                                     )
                                 }
